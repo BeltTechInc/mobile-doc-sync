@@ -11,7 +11,7 @@
         </q-item-section>
         <q-item-section top side>
           <div class="text-grey-9 q-gutter-xs">
-            <q-btn size="13px" flat dense round icon="delete" />
+            <q-btn size="13px" flat dense round icon="las la-times-circle" />
           </div>
         </q-item-section>
       </q-item>
@@ -23,7 +23,7 @@
         </q-item-section>
         <q-item-section top side>
           <div class="text-grey-9 q-gutter-xs">
-            <q-btn size="13px" flat dense round icon="delete" />
+            <q-btn size="13px" flat dense round icon="las la-times-circle" />
           </div>
         </q-item-section>
       </q-item>

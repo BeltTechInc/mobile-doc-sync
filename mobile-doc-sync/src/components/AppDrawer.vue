@@ -3,19 +3,19 @@
       <q-list class="q-pt-xl">
         <q-item clickable v-ripple to="/">
           <q-item-section avatar>
-            <q-icon name="home" size="md" />
+            <q-icon name="las la-home" size="md" />
           </q-item-section>
           <q-item-section class="text-weight-bold">Home</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/timesheets">
           <q-item-section avatar>
-            <q-icon name="info" size="md" />
+            <q-icon name="las la-info" size="md" />
           </q-item-section>
           <q-item-section class="text-weight-bold">Timesheets</q-item-section>
         </q-item>
         <q-item clickable v-ripple to="/expense-reports">
           <q-item-section avatar>
-            <q-icon name="info" size="md" />
+            <q-icon name="las la-info" size="md" />
           </q-item-section>
           <q-item-section class="text-weight-bold">Expense Reports</q-item-section>
         </q-item>

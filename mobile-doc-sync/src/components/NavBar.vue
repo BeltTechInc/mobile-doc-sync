@@ -1,11 +1,11 @@
 <template>
   <q-header bordered class="bg-primary text-white">
     <q-toolbar>
-      <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+      <q-btn dense flat round icon="las la-bars" @click="toggleLeftDrawer" />
         <q-space />
           <q-img src="../assets/logo.png" alt="BeltTech" style="max-width:150px" fit="scale-down" />
         <q-space />
-      <q-btn dense flat round icon="menu" @click="toggleRightDrawer" />
+      <q-btn dense flat round icon="las la-bars" @click="toggleRightDrawer" />
     </q-toolbar>
   </q-header>
 </template>

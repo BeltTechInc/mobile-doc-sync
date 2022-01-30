@@ -1,14 +1,14 @@
 <template>
   <q-page-sticky position="bottom-right" :offset="fabPos">
     <q-fab
-      icon="add"
+      icon="las la-plus"
       direction="up"
       color="accent"
       :disable="draggingFab"
       v-touch-pan.prevent.mouse="moveFab"
     >
-      <q-fab-action @click="onClick" color="primary" icon="person_add" :disable="draggingFab" />
-      <q-fab-action @click="onClick" color="primary" icon="mail" :disable="draggingFab" />
+      <q-fab-action @click="onClick" color="primary" icon="las la-image" :disable="draggingFab" />
+      <q-fab-action @click="onClick" color="primary" icon="las la-camera-retro" :disable="draggingFab" />
     </q-fab>
   </q-page-sticky>  
 </template>
