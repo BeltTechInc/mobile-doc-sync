@@ -8,7 +8,7 @@ module.exports = {
     },
 
     projects: [
-        //'./packages/repo2', // shorthand for only root.
+        './mobile-doc-sync/mobile-doc-sync', // shorthand for only root.
         {
 
             root: './',
