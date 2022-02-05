@@ -1,19 +1,18 @@
 // vetur.config.js
 
 module.exports = {
-
     settings: {
         "vetur.useWorkspaceDependencies": true,
-        "vetur.experimental.templateInterpolationService": true
+        "vetur.experimental.templateInterpolationService": true,
     },
 
     projects: [
-        './mobile-doc-sync/mobile-doc-sync', // shorthand for only root.
+        "
+        // shorthand for only root.
         {
+            root: ".",
 
-            root: './',
-
-            package: './package.json',
+            package: "./package.json",
 
             // tsconfig: './tsconfig.json',
 
@@ -22,6 +21,6 @@ module.exports = {
             // globalComponents: [
             //    './src/components/**/*.vue'
             //]
-        }
-    ]
-}
+        },
+    ],
+};

@@ -7,38 +7,85 @@
       :disable="draggingFab"
       v-touch-pan.prevent.mouse="moveFab"
     >
-      <q-fab-action @click="onClick" color="primary" icon="las la-image" :disable="draggingFab" />
-      <q-fab-action @click="onClick" color="primary" icon="las la-camera-retro" :disable="draggingFab" />
+      <q-fab-action
+        @click="chooseImages"
+        color="primary"
+        icon="las la-image"
+        :disable="draggingFab"
+      />
+      <q-fab-action
+        @click="captureImage"
+        color="primary"
+        icon="las la-camera-retro"
+        :disable="draggingFab"
+      />
     </q-fab>
-  </q-page-sticky>  
+  </q-page-sticky>
 </template>
 
 <script>
-  import { ref } from 'vue'
-  
-  export default {
-    name: "ActionButton",
-    setup () {
-      const fabPos = ref([ 18, 18 ])
-      const draggingFab = ref(false)
+import { ref, computed } from "vue";
+import { Camera, CameraResultType } from "@capacitor/camera";
+import { useStore, commit } from "vuex";
 
-      return {
-        fabPos,
-        draggingFab,
+export default {
+  name: "ActionButton",
 
-        onClick () {
-          console.log('Clicked on a fab action')
-        },
+  setup() {
+    const store = useStore();
 
-        moveFab (ev) {
-          draggingFab.value = ev.isFirst !== true && ev.isFinal !== true
+    const fabPos = ref([18, 18]);
+    const draggingFab = ref(false);
+    const imageSrc = ref("");
 
-          fabPos.value = [
-            fabPos.value[ 0 ] - ev.delta.x,
-            fabPos.value[ 1 ] - ev.delta.y
-          ]
-        }
-      }
+    async function captureImage() {
+      const image = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: true,
+        resultType: CameraResultType.Uri,
+      }).catch((err) => console.log(err));
+
+      imageSrc.value = image.webPath;
     }
-  }
+
+    async function chooseImages() {
+      const images = await Camera.pickImages({
+        quality: 90,
+        limit: 0,
+        correctOrientation: true,
+      }).catch((err) => console.log(err));
+      console.log(`images => ${JSON.stringify(images)}`);
+      addToUploadQueue(images);
+      addToSavedFiles(queue);
+      console.log(`store.state => ${JSON.stringify(store.state)}`);
+    }
+    const addToUploadQueue = (images) =>
+      store.commit("uploads/addToUploadQueue", images);
+
+    const queue = computed(() => store.getters["upload/queue"]);
+    console.log(`queue => ${queue.value}`);
+
+    const addToSavedFiles = (queue) =>
+      store.commit("uploads/addToSavedFiles", queue.value);
+
+    return {
+      fabPos,
+      draggingFab,
+      imageSrc,
+      addToUploadQueue,
+      addToSavedFiles,
+      captureImage,
+      chooseImages,
+
+      moveFab(ev) {
+        draggingFab.value = ev.isFirst !== true && ev.isFinal !== true;
+
+        fabPos.value = [
+          fabPos.value[0] - ev.delta.x,
+          fabPos.value[1] - ev.delta.y,
+        ];
+      },
+    };
+  },
+};
 </script>
