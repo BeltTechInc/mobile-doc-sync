@@ -26,7 +26,7 @@
 <script>
 import { ref, computed } from "vue";
 import { Camera, CameraResultType } from "@capacitor/camera";
-import { useStore, commit } from "vuex";
+import { useStore } from "vuex";
 
 export default {
   name: "ActionButton",
@@ -54,11 +54,15 @@ export default {
         limit: 0,
         correctOrientation: true,
       }).catch((err) => console.log(err));
+
       console.log(`images => ${JSON.stringify(images)}`);
+
       addToUploadQueue(images);
       addToSavedFiles(queue);
+
       console.log(`store.state => ${JSON.stringify(store.state)}`);
     }
+
     const addToUploadQueue = (images) =>
       store.commit("uploads/addToUploadQueue", images);
 
@@ -69,6 +73,7 @@ export default {
       store.commit("uploads/addToSavedFiles", queue.value);
 
     return {
+      store,
       fabPos,
       draggingFab,
       imageSrc,

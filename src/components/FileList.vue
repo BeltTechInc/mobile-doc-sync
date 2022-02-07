@@ -13,14 +13,8 @@ export default {
   name: "FileList",
   setup() {
     const store = useStore();
-    const files = ref([]);
-    const getFiles = computed(() => store.getters.files);
 
-    console.log(`files: ${getFiles.value}`);
-    return {
-      getFiles,
-      files,
-    };
+    return {};
   },
 };
 </script>

@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": "./mobile-doc-sync/",
+    "baseUrl": ".",
     "paths": {
       "src/*": ["src/*"],
       "app/*": ["*"],
