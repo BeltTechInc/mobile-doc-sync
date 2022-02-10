@@ -1,5 +1,3 @@
-export const files = (state, getters) => state.savedFiles;
+export const files = (state) => state.savedFiles;
 
-export function queue(state, getters) {
-    queue = state.imagesToUpload;
-}
+export const queue = (state) => state.imagesToUpload;

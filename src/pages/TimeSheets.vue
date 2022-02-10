@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import ActionButton from "../components/ActionButton";
 import FileList from "../components/FileList.vue";

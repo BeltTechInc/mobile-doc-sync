@@ -8,102 +8,58 @@
 
 /* eslint-env node */
 const ESLintPlugin = require("eslint-webpack-plugin");
-const {
-    configure
-} = require("quasar/wrappers");
+const { configure } = require("quasar/wrappers");
+const environmentConfiguration = require("./src/utils/environmentConfig.js");
 
 module.exports = configure(function(ctx) {
     return {
-        // https://quasar.dev/quasar-cli/supporting-ts
         supportTS: false,
 
-        // https://quasar.dev/quasar-cli/prefetch-feature
-        // preFetch: true,
-
-        // app boot file (/src/boot)
-        // --> boot files are part of "main.js"
-        // https://quasar.dev/quasar-cli/boot-files
-        boot: ["capacitor.js"],
-
-        // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
-        css: ["app.scss"],
-
-        // https://github.com/quasarframework/quasar/tree/dev/extras
-        extras: [
-            // 'ionicons-v4',
-            // 'mdi-v5',
-            // 'fontawesome-v5',
-            // 'eva-icons',
-            // 'themify',
-            "line-awesome",
-            // 'roboto-font-latin-ext', // this or either 'roboto-font', NEVER both!
-
-            "roboto-font", // optional, you are not bound to it
-            // 'material-icons', // optional, you are not bound to it
+        boot: [
+          "capacitor.js", 
+          "firebaseConnection.js"
         ],
 
-        // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
+        css: [
+          "app.scss"
+        ],
+
+        extras: [
+          "line-awesome",
+          "roboto-font"
+        ],
+
         build: {
-            vueRouterMode: "hash", // available values: 'hash', 'history'
-
-            // transpile: false,
-            // publicPath: '/',
-
-            // Add dependencies for transpiling with Babel (Array of string/regex)
-            // (from node_modules, which are by default not transpiled).
-            // Applies only if "transpile" is set to true.
-            // transpileDependencies: [],
-
-            // rtl: true, // https://quasar.dev/options/rtl-support
-            // preloadChunks: true,
-            // showProgress: false,
-            // gzip: true,
-            // analyze: true,
-
-            // Options below are automatically set depending on the env, set them if you want to override
-            // extractCSS: false,
-
-            // https://quasar.dev/quasar-cli/handling-webpack
-            // "chain" is a webpack-chain object https://github.com/neutrinojs/webpack-chain
-            chainWebpack(chain) {
-                chain.plugin("eslint-webpack-plugin").use(ESLintPlugin, [{
-                    extensions: ["js", "vue"],
-                }, ]);
-            },
+          vueRouterMode: "hash", // available values: 'hash', 'history'
+          chainWebpack(chain) {
+            chain.plugin("eslint-webpack-plugin").use(ESLintPlugin, [{
+              extensions: ["js", "vue"],
+            },]);
+          },
+          env: {
+            QENV: environmentConfiguration(process.env.QENV),
+          },
         },
 
-        // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
-        devServer: {
-            server: {
-                type: "http",
-            },
+        server: {
+            type: "http",
             port: 8080,
-            open: true, // opens browser window automatically
+            open: true,
         },
 
-        // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-framework
         framework: {
             config: {},
 
             iconSet: "line-awesome", // Quasar icon set
             // lang: 'en-US', // Quasar language pack
-
-            // For special cases outside of where the auto-import strategy can have an impact
-            // (like functional components as one of the examples),
-            // you can manually specify Quasar components/directives to be available everywhere:
-            //
             // components: [],
             // directives: [],
-
-            // Quasar plugins
-            plugins: [],
+            importStrategy: 'auto',
+            plugins: ['Loading', 'Notify'],
         },
 
-        // animations: 'all', // --- includes all animations
-        // https://quasar.dev/options/animations
         animations: [],
 
-        // https://quasar.dev/quasar-cli/developing-ssr/configuring-ssr
         ssr: {
             pwa: false,
 
@@ -128,7 +84,6 @@ module.exports = configure(function(ctx) {
             ],
         },
 
-        // https://quasar.dev/quasar-cli/developing-pwa/configuring-pwa
         pwa: {
             workboxPluginMode: "GenerateSW", // 'GenerateSW' or 'InjectManifest'
             workboxOptions: {}, // only for GenerateSW
@@ -178,17 +133,14 @@ module.exports = configure(function(ctx) {
             },
         },
 
-        // Full list of options: https://quasar.dev/quasar-cli/developing-cordova-apps/configuring-cordova
         cordova: {
             // noIosLegacyBuildFlag: true, // uncomment only if you know what you are doing
         },
 
-        // Full list of options: https://quasar.dev/quasar-cli/developing-capacitor-apps/configuring-capacitor
         capacitor: {
             hideSplashscreen: true,
         },
 
-        // Full list of options: https://quasar.dev/quasar-cli/developing-electron-apps/configuring-electron
         electron: {
             bundler: "packager", // 'packager' or 'builder'
 
@@ -204,8 +156,6 @@ module.exports = configure(function(ctx) {
             },
 
             builder: {
-                // https://www.electron.build/configuration/configuration
-
                 appId: "mobile-doc-sync",
             },
 

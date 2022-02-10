@@ -66,7 +66,7 @@ export default {
     const addToUploadQueue = (images) =>
       store.commit("uploads/addToUploadQueue", images);
 
-    const queue = computed(() => store.getters["upload/queue"]);
+    const queue = computed(() => store.getters["uploads/queue"]);
     console.log(`queue => ${queue.value}`);
 
     const addToSavedFiles = (queue) =>
