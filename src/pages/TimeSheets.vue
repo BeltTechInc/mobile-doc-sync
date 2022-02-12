@@ -27,7 +27,7 @@ export default {
     const getUploadQueue = computed(() => store.getters["uploads/queue"]);
 
     const update = () => {
-      console.log(` state => ${JSON.stringify(store.state)}`);
+      //console.log(` state => ${JSON.stringify(store.state)}`);
       console.log(getUploadQueue.value);
     };
     return {

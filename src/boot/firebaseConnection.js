@@ -17,6 +17,6 @@ export default ({ store }) => {
   console.log('Firebase App Instantiation:', firebaseServices)
   console.log('Firebase Auth Module:', firebaseServices.auth())
   
-  //Vue.prototype.$fb = firebaseServices;
+  //xVue.prototype.$fb = firebaseServices;
   store.$fb = firebaseServices;
 }
