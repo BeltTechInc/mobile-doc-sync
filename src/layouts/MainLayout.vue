@@ -1,35 +1,95 @@
 <template>
-  <q-layout view="hHh lpR fFf">
+  <q-layout view="lHh Lpr lFf">
+    <q-header elevated>
+      <q-toolbar>
+        <q-btn
+          flat
+          dense
+          round
+          @click="leftDrawerOpen = !leftDrawerOpen"
+          icon="menu"
+          aria-label="Menu"
+        />
 
-    <nav-bar @leftDrawerOpen="toggleLeftDrawer($event)" @rightDrawerOpen="toggleRightDrawer($event)" />
+        <q-toolbar-title>
+          {{ productName }}
+        </q-toolbar-title>
 
-    <q-drawer v-model="isLeftDrawerOpen" side="left" behavior="mobile" bordered>
-      <q-list class="q-pt-xl">
-        <q-item clickable v-ripple to="/">
-          <q-item-section avatar>
-            <q-icon name="las la-home" size="md" />
-          </q-item-section>
-          <q-item-section class="text-weight-bold">Home</q-item-section>
-        </q-item>
-        <q-item clickable v-ripple to="/timesheets">
-          <q-item-section avatar>
-            <q-icon name="las la-business-time" size="md" />
-          </q-item-section>
-          <q-item-section class="text-weight-bold">Timesheets</q-item-section>
-        </q-item>
-        <q-item clickable v-ripple to="/expense-reports">
-          <q-item-section avatar>
-            <q-icon name="las la-file-invoice-dollar" size="md" />
-          </q-item-section>
-          <q-item-section class="text-weight-bold">Expense Reports</q-item-section>
-        </q-item>
-      </q-list>
-    </q-drawer>
+        <div>Quasar v{{ $q.version }}</div>
+      </q-toolbar>
+    </q-header>
 
-    <q-drawer v-model="isRightDrawerOpen" side="right" behavior="mobile" bordered>
-      <q-list class="q-pt-xl">
-        <q-item>
-          <q-item-section class="text-weight-bold">This will be for file previews</q-item-section>
+    <q-drawer
+      v-model="leftDrawerOpen"
+      show-if-above
+      bordered
+      content-class="bg-grey-2"
+    >
+      <q-list>
+        <q-item-label header>Essential Links</q-item-label>
+        <q-item clickable tag="a" target="_blank" href="https://quasar.dev">
+          <q-item-section avatar>
+            <q-icon name="school" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Docs</q-item-label>
+            <q-item-label caption>quasar.dev</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://firebase.google.com/docs/web/setup">
+          <q-item-section avatar>
+            <q-icon>
+              <img src="~assets/firebase-icon.png" height="24px" />
+            </q-icon>
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Firebase Docs</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
+          <q-item-section avatar>
+            <q-icon name="code" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Github</q-item-label>
+            <q-item-label caption>github.com/quasarframework</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://chat.quasar.dev">
+          <q-item-section avatar>
+            <q-icon name="chat" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Discord Chat Channel</q-item-label>
+            <q-item-label caption>chat.quasar.dev</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://forum.quasar.dev">
+          <q-item-section avatar>
+            <q-icon name="record_voice_over" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Forum</q-item-label>
+            <q-item-label caption>forum.quasar.dev</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://twitter.quasar.dev">
+          <q-item-section avatar>
+            <q-icon name="rss_feed" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Twitter</q-item-label>
+            <q-item-label caption>@quasarframework</q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item clickable tag="a" target="_blank" href="https://facebook.quasar.dev">
+          <q-item-section avatar>
+            <q-icon name="public" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Facebook</q-item-label>
+            <q-item-label caption>@QuasarFramework</q-item-label>
+          </q-item-section>
         </q-item>
       </q-list>
     </q-drawer>
@@ -37,36 +97,21 @@
     <q-page-container>
       <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
 <script>
-import NavBar from '../components/NavBar'
-//import AppDrawer from '../components/AppDrawer'
-
 export default {
-  name: 'MainLayout',
-  components: {
-    NavBar,
-    //AppDrawer
-  },
-  data(){
-    return{
-      isLeftDrawerOpen: false,
-      isRightDrawerOpen: false
+  name: 'MyLayout',
+  computed: {
+    productName () {
+      return window.sessionStorage.productName
     }
   },
-  methods: {
-    toggleLeftDrawer(e){
-      this.isLeftDrawerOpen = e
-      console.log(`e => ${e}`)
-    },
-    toggleRightDrawer(e){
-      this.isRightDrawerOpen = e
-      console.log(`e => ${e}`)
+  data () {
+    return {
+      leftDrawerOpen: false
     }
   }
 }
 </script>
-

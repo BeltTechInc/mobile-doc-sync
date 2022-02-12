@@ -1,64 +1,47 @@
-import { route } from 'quasar/wrappers'
-import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
-import { Notify } from 'quasar'
-import firebaseServices from '../services/firebase'
-import store from '../store'
-import routes from './routes'
+import firebaseServices from "../services/firebase";
+import { Notify } from "quasar";
+import { store } from "../store";
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-/*
- * If not building with SSR mode, you can
- * directly export the Router instantiation;
- *
- * The function below can be async too; either use
- * async/await or return a Promise which resolves
- * with the Router instance.
- */
+import routes from "./routes";
 
-export default route(function (/* { store, ssrContext } */) {
-  const createHistory = process.env.SERVER
-    ? createMemoryHistory
-    : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory)
+Vue.use(VueRouter);
 
-  const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+export default function (/* { store, ssrContext } */) {
+  const Router = new VueRouter({
+    scrollBehavior: () => ({ x: 0, y: 0 }),
     routes,
+    mode: process.env.VUE_ROUTER_MODE,
+    base: process.env.VUE_ROUTER_BASE,
+  });
 
-    // Leave this as is and make changes in quasar.conf.js instead!
-    // quasar.conf.js -> build -> vueRouterMode
-    // quasar.conf.js -> build -> publicPath
-    history: createHistory(process.env.MODE === 'ssr' ? void 0 : process.env.VUE_ROUTER_BASE)
-  })
-  
   // Navigational Guards
   Router.beforeEach(async (to, from, next) => {
-    const {
-      ensureAuthIsInitialized,
-      isAuthenticated
-    } = firebaseServices
+    const { ensureAuthIsInitialized, isAuthenticated } = firebaseServices;
     try {
-      // Force the app to wait until Firebase has
-      // finished its initialization, and handle the
-      // authentication state of the user properly
-      await ensureAuthIsInitialized(store)
+      await ensureAuthIsInitialized(store);
       if (to.matched.some(record => record.meta.requiresAuth)) {
         if (isAuthenticated(store)) {
-          next()
+          next();
         } else {
-          next('/auth/login')
+          next("/auth/login");
         }
-      } else if ((to.path === '/auth/register' && isAuthenticated(store)) ||
-        (to.path === '/auth/login' && isAuthenticated(store))) {
-        next('/user/profile')
+      } else if (
+        (to.path === "/auth/register" && isAuthenticated(store)) ||
+        (to.path === "/auth/login" && isAuthenticated(store))
+      ) {
+        next("/user/profile");
       } else {
-        next()
+        next();
       }
     } catch (err) {
       Notify.create({
         message: `${err}`,
-        color: 'negative'
-      })
+        color: "negative",
+      });
     }
-  })
+  });
 
-  return Router
-})
+  return Router;
+}
