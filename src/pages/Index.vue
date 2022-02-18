@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
   <q-page class="">
     <q-separator size="10px" />
     <q-list bordered separator>
@@ -37,8 +38,22 @@
 import { ref } from 'vue';
 import { useStore } from 'vuex';
 import FileList from "src/components/FileList.vue";
+=======
+  <q-page class="column justify-start">
+    <div class="row justify-center q-my-xl">
+      <img alt="Quasar logo" src="~assets/logo.png" height="326px" width="300px">
+    </div>
+    <div class="q-px-lg text-h6 text-center">
+      <router-link to="auth/register" class="text-primary">Register</router-link> a new account or
+      <router-link to="auth/login" class="text-primary">log in</router-link>.
+    </div>
+  </q-page>
+</template>
+>>>>>>> 1acc7e90f8a3d6d8cd6047445d4b50e3cf703395
 
+<script>
 export default {
+<<<<<<< HEAD
   name: "PageIndex",
 
   components: {
@@ -53,3 +68,8 @@ export default {
   }
 };
 </script>
+=======
+  name: 'PageIndex'
+}
+</script>
+>>>>>>> 1acc7e90f8a3d6d8cd6047445d4b50e3cf703395

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import { useStore } from "vuex";
 import ActionButton from "../components/ActionButton";
 import FileList from "../components/FileList.vue";
@@ -27,8 +27,13 @@ export default {
     
 
     const update = () => {
+<<<<<<< HEAD
       console.log(`state => ${JSON.stringify(store.state)}`);
       
+=======
+      //console.log(` state => ${JSON.stringify(store.state)}`);
+      console.log(getUploadQueue.value);
+>>>>>>> 1acc7e90f8a3d6d8cd6047445d4b50e3cf703395
     };
     return {
       store,

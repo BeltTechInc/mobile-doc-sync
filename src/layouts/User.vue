@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout class="main" :class="{ 'blur-layout': blurLayout }" view="lHh Lpr lFf">
     <q-header elevated>
       <q-toolbar>
         <q-btn
@@ -34,16 +34,6 @@
           <q-item-section>
             <q-item-label>Docs</q-item-label>
             <q-item-label caption>quasar.dev</q-item-label>
-          </q-item-section>
-        </q-item>
-        <q-item clickable tag="a" target="_blank" href="https://firebase.google.com/docs/web/setup">
-          <q-item-section avatar>
-            <q-icon>
-              <img src="~assets/firebase-icon.png" height="24px" />
-            </q-icon>
-          </q-item-section>
-          <q-item-section>
-            <q-item-label>Firebase Docs</q-item-label>
           </q-item-section>
         </q-item>
         <q-item clickable tag="a" target="_blank" href="https://github.quasar.dev">
@@ -91,27 +81,55 @@
             <q-item-label caption>@QuasarFramework</q-item-label>
           </q-item-section>
         </q-item>
+        <q-item clickable @click="logoutUser()">
+          <q-item-section avatar>
+            <q-icon name="power_settings_new" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label>Logout</q-item-label>
+          </q-item-section>
+        </q-item>
       </q-list>
     </q-drawer>
 
     <q-page-container>
-      <router-view />
+      <router-view @setBlur="setBlur" />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 export default {
-  name: 'MyLayout',
+  name: 'UserLayout',
   computed: {
+    ...mapGetters('user', ['currentUser']),
     productName () {
       return window.sessionStorage.productName
     }
   },
+  created () {
+    // Check that our app has access to the user id
+    // from Firebase before the page renders
+    console.log('FIREBASE AUTH USER uid', this.$store.state.auth.uid)
+  },
   data () {
     return {
-      leftDrawerOpen: false
+      leftDrawerOpen: false,
+      blurLayout: false
+    }
+  },
+  methods: {
+    ...mapActions('auth', ['logoutUser']),
+    setBlur () {
+      this.blurLayout = !this.blurLayout
     }
   }
 }
 </script>
+
+<style lang="stylus" scoped>
+  .main
+    &.blur-layout
+      filter blur(5px)
+</style>

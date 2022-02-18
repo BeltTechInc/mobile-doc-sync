@@ -1,3 +1,4 @@
+/* eslint ignore-file  */
 # Belt-Tech App (mobile-doc-sync)
 
 A Belt-Tech app to sync docs with office
@@ -9,7 +10,7 @@ yarn
 
 ### Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+yarn dev
 ```
 
 ### Lint the files

@@ -1,4 +1,9 @@
 {
   "cSpell.ignoreWords": ["vetur"],
-  "cSpell.words": ["vuex"]
+  "cSpell.words": [
+    "middlewares",
+    "myapp",
+    "QENV",
+    "vuex"
+  ]
 }

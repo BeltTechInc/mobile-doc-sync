@@ -7,20 +7,11 @@ module.exports = {
     },
 
     projects: [
-        "
-        // shorthand for only root.
+
         {
             root: ".",
-
             package: "./package.json",
 
-            // tsconfig: './tsconfig.json',
-
-            // snippetFolder: './.vscode/vetur/snippets',
-
-            // globalComponents: [
-            //    './src/components/**/*.vue'
-            //]
         },
     ],
 };
