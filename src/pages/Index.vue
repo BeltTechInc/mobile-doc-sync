@@ -4,6 +4,9 @@
     <q-list bordered separator>
       <q-item-label header>File Uploads</q-item-label>
       <q-item>
+        <file-list />
+      </q-item>
+      <q-item>
         <q-item-section top>
           <q-item-label caption class="text-grey-9">
             file
@@ -31,13 +34,22 @@
   </q-page>
 </template>
 <script>
+import { ref } from 'vue';
+import { useStore } from 'vuex';
+import FileList from "src/components/FileList.vue";
 
 export default {
   name: "PageIndex",
-  data() {
-    return {
-      
-    };
+
+  components: {
+    FileList
+  },
+
+  setup(){
+    const store = useStore();
+    return{
+      store
+    }
   }
 };
 </script>

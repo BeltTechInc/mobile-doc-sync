@@ -24,11 +24,11 @@ export default {
 
   setup() {
     const store = useStore();
-    const getUploadQueue = computed(() => store.getters["uploads/queue"]);
+    
 
     const update = () => {
-      console.log(` state => ${JSON.stringify(store.state)}`);
-      console.log(getUploadQueue.value);
+      console.log(`state => ${JSON.stringify(store.state)}`);
+      
     };
     return {
       store,
